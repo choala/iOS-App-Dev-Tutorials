@@ -11,6 +11,8 @@ struct DetailEditView: View {
     @State private var scrum = DailyScrum.emptyScrum
     @State private var newAttendeeName = ""
     
+    // accessibilityLabel: 뷰의 역할과 기능을 설명
+    // accessibilityValue: 뷰가 현재 어떤 값을 나타내는지 설명
     var body: some View {
         Form {
             Section(header: Text("Meeting Info")) {
@@ -19,8 +21,10 @@ struct DetailEditView: View {
                     Slider(value: $scrum.lengthInMinutesDouble, in: 5...30, step: 1) {
                         Text("Length")
                     }
+                    .accessibilityValue("\(scrum.lengthInMinutes) minutes")
                     Spacer()
                     Text("\(scrum.lengthInMinutes) minutes")
+                        .accessibilityHidden(true)
                 }
             }
             Section(header: Text("Attendees")) {
@@ -40,6 +44,7 @@ struct DetailEditView: View {
                         }
                     } label: {
                         Image(systemName: "plus.circle.fill")
+                            .accessibilityLabel("Add attendee")
                     }
                     .disabled(newAttendeeName.isEmpty)
                 }
